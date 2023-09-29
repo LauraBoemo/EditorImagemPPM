@@ -2,6 +2,20 @@
 
 Esse é um código realizado para o Trabalho 01 da cadeira de Estrutura de Dados, desenvolvido por Laura Boemo.
 
+## Como executar
+
+1. Neste documento, execute:
+
+```Shell
+$ gcc main.c -o main
+```
+
+2. Para executar o programa:
+
+```Shell
+$ ./main
+```
+
 ## Requisitos Funcionais Diponíveis
 
 - [x] Ler imagens no formato PPM/P3
