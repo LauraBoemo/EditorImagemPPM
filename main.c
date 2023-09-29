@@ -1,7 +1,7 @@
 /*
 
 ~~~~~~~~~~~~~~~~~~~~~~ EDITOR IMAGEM PPM ~~~~~~~~~~~~~~~~~~~~~~~~~
-                       Por:  Laura Boemo
+                         Por:  Laura Boemo
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 */
@@ -18,7 +18,7 @@
 /*
 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-                       	   Typedefining
+                         Typedefining
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 */
@@ -37,7 +37,7 @@ typedef struct {
 /*
 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-						Prototypes (Funções)
+                         Prototypes (Funções)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 */
@@ -60,7 +60,7 @@ void zoom(ppmFile *imageFile);
 /*
 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-						Inicialização
+                         Inicialização
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 */
@@ -139,7 +139,7 @@ int main(void) {
 /*
 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-			 Esta funcao le o arquivo PPM de entrada
+                Esta funcao le o arquivo PPM de entrada
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 */
@@ -191,7 +191,7 @@ ppmFile* readImage(char *imageFile) {
 /*
 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-			Esta funcao escreve o arquivo PPM de saida
+            Esta funcao escreve o arquivo PPM de saida
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 */
@@ -220,10 +220,10 @@ void writeImage(char *imageName, ppmFile *imageFile) {
 /*
 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-			Esta funcao altera cada numero de cor ou
-			para o maximo possivel ou para zero, ao
-			compara-lo com a metade da profundidade de cor.
-			Gerando, assim, contraste extremo.
+            Esta funcao altera cada numero de cor ou
+            para o maximo possivel ou para zero, ao
+            compara-lo com a metade da profundidade de cor.
+            Gerando, assim, contraste extremo.
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 */
@@ -250,7 +250,7 @@ void extremeContrast(ppmFile* imageFile) {
 /* 
 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-		Esta funcao negara o numero do vermelho em cada pixel
+         Esta funcao negara o numero do vermelho em cada pixel
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 */
@@ -263,7 +263,7 @@ void negateRed(ppmFile *imageFile) {
 /* 
 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-		Esta funcao rotaciona a imagem horizontalmente
+         Esta funcao rotaciona a imagem horizontalmente
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 */
@@ -286,7 +286,7 @@ void horizontalFlip(ppmFile *imageFile) {
 /* 
 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-		Esta funcao rotaciona a imagem verticalmente
+         Esta funcao rotaciona a imagem verticalmente
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 */
@@ -313,7 +313,7 @@ void verticalFlip(ppmFile *imageFile) {
 /* 
 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-		Esta funcao aplica escala (zoom) a imagem 
+         Esta funcao aplica escala (zoom) a imagem 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 */
