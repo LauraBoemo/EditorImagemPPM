@@ -1,7 +1,7 @@
 /*
 
-~~~~~~~~~~~~~~~~~~~~~~ EDITOR IMAGEM PPM ~~~~~~~~~~~~~~~~~~~~~~~~~
-                         Por:  Laura Boemo
+~~~~~~~~~~~~~~~~~~~~~~ PPM IMAGE EDITOR ~~~~~~~~~~~~~~~~~~~~~~~~~
+                         By: Laura Boemo
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 */
@@ -23,270 +23,271 @@
 
 */
 
-// Estrutura dos pixels
+// Pixel structure
 typedef struct {
-	int R, G, B;
+    int R, G, B;
 } pixel;
 
-// Estrutura da imagem PPM
+// PPM image structure
 typedef struct {
-	int row, col, colorDepth;
-	pixel *body;
+    int row, col, colorDepth;
+    pixel *body;
 } ppmFile;
 
 /*
 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-                         Prototypes (Funções)
+                         Prototypes (Functions)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 */
 
-// Leitura da Imagem PPM
+// PPM Image Reading
 ppmFile* readImage(char *imageFile);
-// Retorno (Escrita) da Imagem PPM
+// PPM Image Writing
 void writeImage(char *imageName, ppmFile *imageFile);
-// Filtro de Cor
+// Color Filter
 void extremeContrast(ppmFile* imageFile);
-// Filtro de Cor
+// Color Filter
 void negateRed(ppmFile *imageFile);
-// Filtro de Modificação de Pixels
+// Pixel Modification Filter
 void horizontalFlip(ppmFile *imageFile);
-// Filtro de Modificação de Pixels
+// Pixel Modification Filter
 void verticalFlip(ppmFile *imageFile);
-// Funcao de aplicacao de escala
+// Scaling Application Function
 void zoom(ppmFile *imageFile);
 
 /*
 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-                         Inicialização
+                         Initialization
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 */
 int main(void) {
-	// Inicializando valores de entrada, saida e escolhas
-	char inputFile[20], outputFile[20], choice[15];
+    // Initializing input, output, and choices
+    char inputFile[20], outputFile[20], choice[15];
 
-	puts("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
-	puts("		Editor de Imagem Portable Pixmap (PPM)		        ");
-	puts("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n\n");
+    puts("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
+    puts("            Portable Pixmap (PPM) Image Editor            ");
+    puts("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n\n");
 
-	// Insercao dos nomes dos arquivos PPM 
-	printf("Insira o nome do arquivo de entrada da imagem: ");
-	scanf("%s", inputFile);
+    // Input of PPM file names
+    printf("Enter the input image file name: ");
+    scanf("%s", inputFile);
 
-	printf("Insira o nome do arquivo de saida da imagem: ");
-	scanf("%s", outputFile);
+    printf("Enter the output image file name: ");
+    scanf("%s", outputFile);
 
-	// Atribuicao da leitura do arquivo de entrada ao typedef para arquivos PPM
-	ppmFile *readFile = readImage(inputFile);
+    // Assigning the read input file to the PPM file structure
+    ppmFile *readFile = readImage(inputFile);
 
-	puts("\n\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
-	puts("			Opcoes de Edicao		        ");
-	puts("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n\n");
+    puts("\n\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
+    puts("            Editing Options            ");
+    puts("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n\n");
 
-	// Declaracao das opcoes de edicao de imagem PPM
-	char options[5][100] = {
-		"cor para contraste extremo",
-		"cor para negativar cores vermelhas", 
-		"modificacao de pixels para virar horizontalmente a imagem",
-		"modificacao de pixels para virar verticalmente a imagem",
-		"zoom na imagem"
-	};
+    // Declaration of PPM image editing options
+    char options[5][100] = {
+        "color for extreme contrast",
+        "color to invert red colors",
+        "pixel modification to horizontally flip the image",
+        "pixel modification to vertically flip the image",
+        "zoom in the image"
+    };
 
-	// Leitura das escolhas feitas perante as opcoes fornecidas
-	for (int i = 0; i < 5; ++i) {
-		do {
-			printf("Desejas aplicar o filtro de %s? (s/n): ", options[i]);
-			fflush(stdin);
-			scanf(" %c", &choice[i]);
-		} while ((choice[i] != 's') && (choice[i] != 'S') && (choice[i] != 'n') && (choice[i] != 'N'));
-	}
+    // Reading user choices for the provided options
+    for (int i = 0; i < 5; ++i) {
+        do {
+            printf("Do you want to apply the %s filter? (y/n): ", options[i]);
+            fflush(stdin);
+            scanf(" %c", &choice[i]);
+        } while ((choice[i] != 'y') && (choice[i] != 'Y') && (choice[i] != 'n') && (choice[i] != 'N');
+    }
 
-	// Chamada e execucao das opcoes selecionadas
-	if (choice[0] == 's' || choice[0] == 'S')
-		extremeContrast(readFile); 
+    // Calling and executing the selected options
+    if (choice[0] == 'y' || choice[0] == 'Y')
+        extremeContrast(readFile);
 
-	if (choice[1] == 's' || choice[1] == 'S')
-		negateRed(readFile);
+    if (choice[1] == 'y' || choice[1] == 'Y')
+        negateRed(readFile);
 
-	if (choice[2] == 's' || choice[2] == 'S')
-		horizontalFlip(readFile);
-	
-	if (choice[3] == 's' || choice[3] == 'S')
-		verticalFlip(readFile);
+    if (choice[2] == 'y' || choice[2] == 'Y')
+        horizontalFlip(readFile);
 
-	if (choice[4] == 's' || choice[4] == 'S')
-		zoom(readFile);
-	
-	puts("\n\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
-	puts("	Sua nova imagem PPM com filtros esta sendo processada...		        ");
-	puts("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n\n");
+    if (choice[3] == 'y' || choice[3] == 'Y')
+        verticalFlip(readFile);
 
-	// Escrevendo o retorno da imagem PPM (editada) 
-	writeImage(outputFile, readFile);
+    if (choice[4] == 'y' || choice[4] == 'Y')
+        zoom(readFile);
 
-	// Liberacao da memoria dinamica alocada
-	free(readFile->body);
-	free(readFile);
+    puts("\n\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
+    puts("  Your new PPM image with filters is being processed...            ");
+    puts("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n\n");
 
-	printf("%s esta disponivel!\n\n", outputFile);
+    // Writing the edited PPM image
+    writeImage(outputFile, readFile);
 
-	return EXIT_SUCCESS;
+    // Freeing dynamically allocated memory
+    free(readFile->body);
+    free(readFile);
+
+    printf("%s is available!\n\n", outputFile);
+
+    return EXIT_SUCCESS;
 }
 
 /*
 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-                Esta funcao le o arquivo PPM de entrada
+                This function reads the input PPM file
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 */
 ppmFile* readImage(char *imageFile) {
-	char imageFormat[4];
-	FILE *fp; // Ponteiro File para o arquivo de entrada 
+    char imageFormat[4];
+    FILE *fp; // File pointer for the input file
 
-	// Alocando memoria dinamica para a imagem que sera lida
-	ppmFile *imagePtr = (ppmFile*)malloc(sizeof(ppmFile));
-	if (!imagePtr) {
-		printf("Erro: A alocacao de memoria falhou!\n");
-		exit(EXIT_FAILURE);
-	}
+    // Allocating dynamic memory for the image to be read
+    ppmFile *imagePtr = (ppmFile*)malloc(sizeof(ppmFile));
+    if (!imagePtr) {
+        printf("Error: Memory allocation failed!\n");
+        exit(EXIT_FAILURE);
+    }
 
-	// Abertura do arquivo PPM em modo nao-binario
-	fp = fopen(imageFile, "r");
+    // Opening the PPM file in non-binary mode
+    fp = fopen(imageFile, "r");
 
-	if (!fp) { // Caso o arquivo tenha falhado ao ter sido aberto
-		printf("Erro: A abertura do arquivo falou!\n");
-		exit(EXIT_FAILURE);
-	}
+    if (!fp) { // If the file failed to open
+        printf("Error: File opening failed!\n");
+        exit(EXIT_FAILURE);
+    }
 
-	// Lendo o arquivo PPM e verificando seu formato
-	fgets(imageFormat, sizeof(imageFormat), fp);
-	if (imageFormat[0] != 'P' || imageFormat[1] != '3') {
-		printf("Erro: O formato da imagem deve ser P3!\n");
-		exit(EXIT_FAILURE);
-	}
+    // Reading the PPM file and checking its format
+    fgets(imageFormat, sizeof(imageFormat), fp);
+    if (imageFormat[0] != 'P' || imageFormat[1] != '3') {
+        printf("Error: Image format must be P3!\n");
+        exit(EXIT_FAILURE);
+    }
 
-	// Lendo o tamanho da imagem e sua cor maxima
-	fscanf(fp, "   %d %d   ", &imagePtr->col, &imagePtr->row);
-	fscanf(fp, "  %d  ", &imagePtr->colorDepth);
+    // Reading the image size and its maximum color value
+    fscanf(fp, "   %d %d   ", &imagePtr->col, &imagePtr->row);
+    fscanf(fp, "  %d  ", &imagePtr->colorDepth);
 
-	// Alocando memoria dinamica para os dados dos pixels
-	imagePtr->body = (pixel*)malloc(imagePtr->row * imagePtr->col * sizeof(pixel));
-	if (!imagePtr) {
-		printf("Erro: A alocacao de memoria falhou!\n");
-		exit(EXIT_FAILURE);
-	}
+    // Allocating dynamic memory for the pixel data
+    imagePtr->body = (pixel*)malloc(imagePtr->row * imagePtr->col * sizeof(pixel));
+    if (!imagePtr) {
+        printf("Error: Memory allocation failed!\n");
+        exit(EXIT_FAILURE);
+    }
 
-	// Lendo os pixels que compoem o corpo da imagem
-	for (int i = 0; i < imagePtr->row * imagePtr->col; ++i)
-		fscanf(fp, "    %d %d %d    ", &(imagePtr->body[i].R), &(imagePtr->body[i].G), &(imagePtr->body[i].B));
+    // Reading the pixels that make up the image body
+    for (int i = 0; i < imagePtr->row * imagePtr->col; ++i)
+        fscanf(fp, "    %d %d %d    ", &(imagePtr->body[i].R), &(imagePtr->body[i].G), &(imagePtr->body[i].B));
 
-	fclose(fp); // Fechando o arquivo PPM
-	return imagePtr; // Retornando o arquivo lido
+    fclose(fp); // Closing the PPM file
+    return imagePtr; // Returning the read file
 }
 
 /*
 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-            Esta funcao escreve o arquivo PPM de saida
+            This function writes the output PPM file
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 */
 void writeImage(char *imageName, ppmFile *imageFile) {
-	FILE *fp; // Ponteiro File para o arquivo de saida
+    FILE *fp; // File pointer for the output file
 
-	// Criando o ponteiro de saida
-	fp = fopen(imageName, "w");
-	if (!fp) { // Caso a criacao do arquivo falhe
-		printf("Erro: Nao foi possivel criar o arquivo!\n");
-		exit(EXIT_FAILURE);
-	}
+    // Creating the output file pointer
+    fp = fopen(imageName, "w");
+    if (!fp) { // If file creation fails
+        printf("Error: Unable to create the file!\n");
+        exit(EXIT_FAILURE);
+    }
 
-	// Escrevendo o cabecalho da imagem
-	fprintf(fp, "P3"); // Numero magico
-	fprintf(fp, "   %d %d   ", imageFile->col, imageFile->row);  // Colunas e Linhas
-	fprintf(fp, "  %d  ", imageFile->colorDepth); // Profundidade maxima de cor
+    // Writing the image header
+    fprintf(fp, "P3"); // Magic number
+    fprintf(fp, "   %d %d   ", imageFile->col, imageFile->row);  // Columns and Rows
+    fprintf(fp, "  %d  ", imageFile->colorDepth); // Maximum color depth
 
-	// Escrevendo o corpo da imagem
-	for (int i = 0; i < (imageFile->row * imageFile->col); ++i)
-		fprintf(fp, "    %d %d %d    ", imageFile->body[i].R, imageFile->body[i].G, imageFile->body[i].B);
+    // Writing the image body
+    for (int i = 0; i < (imageFile->row * imageFile->col); ++i)
+        fprintf(fp, "    %d %d %d    ", imageFile->body[i].R, imageFile->body[i].G, imageFile->body[i].B);
 
-	fclose(fp); // Fechando a imagem criada
+    fclose(fp); // Closing the created image
 }
 
 /*
 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-            Esta funcao altera cada numero de cor ou
-            para o maximo possivel ou para zero, ao
-            compara-lo com a metade da profundidade de cor.
-            Gerando, assim, contraste extremo.
+            This function changes each color
+
+ number to
+            either the maximum possible or zero, by
+            comparing it with half of the color depth.
+            Generating extreme contrast.
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 */
 void extremeContrast(ppmFile* imageFile) {
-	// Se o numero da cor for maior que a metade da profundade da cor, sera alterado para 255, senao 0
-	for (int i = 0; i < imageFile->col * imageFile->row; i++) {
-		if (imageFile->body[i].R > 128) //  128 = metade da profundidade da cor
-			imageFile->body[i].R = MAX_DEPTH;
-		else
-			imageFile->body[i].R = MIN_DEPTH;
+    // If the color number is greater than half of the color depth, it will be changed to 255, otherwise, 0
+    for (int i = 0; i < imageFile->col * imageFile->row; i++) {
+        if (imageFile->body[i].R > 128) // 128 = half of the color depth
+            imageFile->body[i].R = MAX_DEPTH;
+        else
+            imageFile->body[i].R = MIN_DEPTH;
 
-		if (imageFile->body[i].G > 128)
-			imageFile->body[i].G = MAX_DEPTH;
-		else
-			imageFile->body[i].G = MIN_DEPTH;
+        if (imageFile->body[i].G > 128)
+            imageFile->body[i].G = MAX_DEPTH;
+        else
+            imageFile->body[i].G = MIN_DEPTH;
 
-		if (imageFile->body[i].B > 128)
-			imageFile->body[i].B = MAX_DEPTH;
-		else
-			imageFile->body[i].B = MIN_DEPTH;
-	}
+        if (imageFile->body[i].B > 128)
+            imageFile->body[i].B = MAX_DEPTH;
+        else
+            imageFile->body[i].B = MIN_DEPTH;
+    }
 }
 
-/* 
+/*
 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-         Esta funcao negara o numero do vermelho em cada pixel
+         This function negates the red number in each pixel
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 */
 void negateRed(ppmFile *imageFile) {
-	// Se o vermelho for baixo em valor, ele se tornara alto e vice versa
-	for (int i = 0; i < imageFile->col * imageFile->row; i++)
-		imageFile->body[i].R = abs(imageFile->body[i].R - MAX_DEPTH);
+    // If red is low in value, it will become high, and vice versa
+    for (int i = 0; i < imageFile->col * imageFile->row; i++)
+        imageFile->body[i].R = abs(imageFile->body[i].R - MAX_DEPTH);
 }
 
-/* 
+/*
 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-         Esta funcao rotaciona a imagem horizontalmente
+         This function horizontally rotates the image
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 */
 void horizontalFlip(ppmFile *imageFile) {
-	// Deslocando o centro da imagem
-	int imageCenter = imageFile->col / 2;
+    // Shifting the center of the image
+    int imageCenter = imageFile->col / 2;
 
-	for (int i = 0; i < imageFile->row; ++i) {
-		pixel *tmpArray = imageFile->body + i * imageFile->col; // Array temporario de Pixels
-		for (int j = 0; j < imageCenter; ++j)
-		{
-			// Invertendo Pixels
-			pixel temp = tmpArray[j];
-			tmpArray[j] = tmpArray[imageFile->col - 1 - j];
-			tmpArray[imageFile->col - 1 - j] = temp;
-		}
-	}
+    for (int i = 0; i < imageFile->row; ++i) {
+        pixel *tmpArray = imageFile->body + i * imageFile->col; // Temporary array of Pixels
+        for (int j = 0; j < imageCenter; ++j) {
+            // Inverting Pixels
+            pixel temp = tmpArray[j];
+            tmpArray[j] = tmpArray[imageFile->col - 1 - j];
+            tmpArray[imageFile->col - 1 - j] = temp;
+        }
+    }
 }
 
-/* 
+/*
 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-         Esta funcao rotaciona a imagem verticalmente
+         This function vertically rotates the image
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 */
@@ -294,13 +295,13 @@ void verticalFlip(ppmFile *imageFile) {
     int line_size = imageFile->col * sizeof(pixel);
     int imageCenter = imageFile->row / 2;
 
-    // Alocando buff de troca
+    // Allocating a swap buffer
     pixel* buff = (pixel*)malloc(line_size);
     pixel* top;
     pixel* bottom;
 
     for (int y = 0; y < imageCenter; ++y) {
-        // Realizando troca entre linhas do topo e da base
+        // Swapping lines from the top and bottom
         top = imageFile->body  + (y * imageFile->col);
         bottom = imageFile->body  + ((imageFile->col - y - 1) * imageFile->col);
 
@@ -308,58 +309,60 @@ void verticalFlip(ppmFile *imageFile) {
         memcpy(top, bottom, line_size);
         memcpy(bottom, buff, line_size);
     }
+
+    free(buff); // Freeing the swap buffer
 }
 
-/* 
+/*
 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-         Esta funcao aplica escala (zoom) a imagem 
+         This function applies scaling (zoom) to the image
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 */
 
 void zoom(ppmFile *imageFile) {
-	char inputZoom[20];
-	int zoomValue = 1;
-	FILE *fp; // Ponteiro File para o arquivo de saida
+    char inputZoom[20];
+    int zoomValue = 1;
+    FILE *fp; // File pointer for the output file
 
-	puts("\n\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
-	puts("		Edicoes particulares do Zoom em PPM		        ");
-	puts("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n\n");
+    puts("\n\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
+    puts("        Special Zoom Editions in PPM            ");
+    puts("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n\n");
 
-	printf("Insira o nome do arquivo de zoom da imagem: ");
-	scanf("%s", inputZoom);
+    printf("Enter the zoom image file name: ");
+    scanf("%s", inputZoom);
 
+    printf("Enter how much zoom you want: ");
+    scanf("%d", &zoomValue);
 
-	printf("Insira quanto zoom desejas: ");
-	scanf("%d", &zoomValue);
+    // Creating the output file pointer
+    fp = fopen(inputZoom, "w");
+    if (!fp) { // If file creation fails
+        printf("Error: Unable to create the file!\n");
+        exit(EXIT_FAILURE);
+    }
 
-	// Criando o ponteiro de saida
-	fp = fopen(inputZoom, "w");
-	if (!fp) { // Caso a criacao do arquivo falhe
-		printf("Erro: Nao foi possivel criar o arquivo!\n");
-		exit(EXIT_FAILURE);
-	}
+    // Writing the image header
+    fprintf(fp, "P3"); // Magic number
+    fprintf(fp, "   %d %d   ", (imageFile->col * zoomValue), (imageFile->row * zoomValue));  // Columns and Rows with added zoom
+    fprintf(fp, "  %d  ", imageFile->colorDepth); // Maximum color depth
 
-	// Escrevendo o cabecalho da imagem
-	fprintf(fp, "P3"); // Numero magico
-	fprintf(fp, "   %d %d   ", (imageFile->col * zoomValue), (imageFile->row * zoomValue));  // Colunas e Linhas com o zoom adicionado
-	fprintf(fp, "  %d  ", imageFile->colorDepth); // Profundidade maxima de cor
-	
-    for (int i = 0; i < ((imageFile->row) * (imageFile->col)); i++)
-        for (int k = 0; k < zoomValue * zoomValue; k++)
-			fprintf(fp, "    %d %d %d    ", 
-				(imageFile->body[i].R > imageFile->colorDepth) ? imageFile->colorDepth : imageFile->body[i].R,
-				(imageFile->body[i].G > imageFile->colorDepth) ? imageFile->colorDepth : imageFile->body[i].G,
-				(imageFile->body[i].B > imageFile->colorDepth) ? imageFile->colorDepth : imageFile->body[i].B
-			);
-	
+    for (int i = 0; i < ((imageFile->row) * (imageFile->col)); i++) {
+        for (int k = 0; k < zoomValue * zoomValue; k++) {
+            fprintf(fp, "    %d %d %d    ",
+                (imageFile->body[i].R > imageFile->colorDepth) ? imageFile->colorDepth : imageFile->body[i].R,
+                (imageFile->body[i].G > imageFile->colorDepth) ? imageFile->colorDepth : imageFile->body[i].G,
+                (imageFile->body[i].B > imageFile->colorDepth) ? imageFile->colorDepth : imageFile->body[i].B
+            );
+        }
+    }
 
-	puts("\n\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
-	puts("  Sua nova imagem PPM com filtros e zoom esta sendo processada...		        ");
-	puts("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n\n");
+    puts("\n\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
+    puts("  Your new PPM image with filters and zoom is being processed...            ");
+    puts("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n\n");
 
-	fclose(fp); // Fechando a imagem criada
+    fclose(fp); // Closing the created image
 
-	printf("%s esta disponivel!", inputZoom);
+    printf("%s is available!", inputZoom);
 }
