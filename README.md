@@ -1,70 +1,70 @@
-# Editor de Imagem Portable Pixmap (PPM)
+# Portable Pixmap (PPM) Image Editor
 
-Esse é um código realizado para o Trabalho 01 da cadeira de Estrutura de Dados, desenvolvido por Laura Boemo.
+This is a code created for the Assignment 01 of the Data Structures course, developed by Laura Boemo.
 
-## Como executar
+## How to Run
 
-1. Neste documento, execute:
+1. In this document, execute:
 
 ```Shell
 $ gcc main.c -o main
 ```
 
-2. Para executar o programa:
+2. To run the program:
 
 ```Shell
 $ ./main
 ```
 
-## Requisitos Funcionais Diponíveis
+## Available Functional Requirements
 
-- [x] Ler imagens no formato PPM/P3
-- [x] Escrever imagens no formato PPM/P3
-- [x] Aplicação 01 de Filtro de Cor - Aumento de Contraste
-- [x] Aplicação 02 de Filtro de Cor - Negativação do Vermelho 
-- [x] Aplicação 01 de Filtro de Modificação de Pixels - Rotacionar horizontalmente
-- [x] Aplicação 02 de Filtro de Modificação de Pixels - Rotacionar verticalmente
-- [ ] Operação de Recorte
-- [ ] Operação de Colar
-- [x] Operação de Escala
-- [ ] Seleção de Subconjuntos
+- [x] Read images in PPM/P3 format
+- [x] Write images in PPM/P3 format
+- [x] Color Filter Application 01 - Contrast Enhancement
+- [x] Color Filter Application 02 - Red Negation
+- [x] Pixel Modification Filter Application 01 - Horizontal Rotation
+- [x] Pixel Modification Filter Application 02 - Vertical Rotation
+- [ ] Cropping Operation
+- [ ] Pasting Operation
+- [x] Scaling Operation
+- [ ] Subset Selection
 
-## Requisitos de Estrutura de Dados Diponíveis
+## Available Data Structure Requirements
 
-- [x] Armazenamento e manipulação das imagens utilizando ponteiros e blocos de memória alocados dinamicamente
-- [x] Sempre que possível, a aplicação de filtro/operações não utiliza blocos de memória adicionais
+- [x] Storage and manipulation of images using dynamically allocated memory blocks and pointers
+- [x] Whenever possible, the application of filters/operations does not use additional memory blocks
 
-## Relatório
+## Report
 
-Este código em C implementa um programa simples de edição de imagens no formato PPM (Portable Pixmap). As estruturas de dados desempenham um papel crucial no funcionamento do programa, permitindo a representação, manipulação e processamento eficiente das imagens. Vamos analisar como as estruturas de dados são aplicadas neste código:
+This C code implements a simple image editing program in the PPM (Portable Pixmap) format. Data structures play a crucial role in the operation of the program, allowing for the representation, manipulation, and efficient processing of images. Let's analyze how data structures are applied in this code:
 
-1. Estruturas de Pixels (pixel):
+1. Pixel Structures (pixel):
 
-    A estrutura pixel é usada para representar as cores individuais dos pixels na imagem. Ela contém três campos inteiros para as componentes de cor Red (R), Green (G) e Blue (B).
+   The pixel structure is used to represent the individual colors of pixels in the image. It contains three integer fields for the Red (R), Green (G), and Blue (B) color components.
 
-2. Estrutura da Imagem PPM (ppmFile):
+2. PPM Image Structure (ppmFile):
 
-    A estrutura ppmFile é usada para representar a imagem PPM como um todo. Ela contém os seguintes campos:
+   The ppmFile structure is used to represent the PPM image as a whole. It contains the following fields:
 
-- row: Representa o número de linhas na imagem.
-- col: Representa o número de colunas na imagem.
-- colorDepth: Representa a profundidade máxima de cor (geralmente 0-255) da imagem PPM.
-- body: Um ponteiro para um array de pixels que armazena os dados da imagem.
+   - row: Represents the number of rows in the image.
+   - col: Represents the number of columns in the image.
+   - colorDepth: Represents the maximum color depth (usually 0-255) of the PPM image.
+   - body: A pointer to an array of pixels that stores the image data.
 
-3. Leitura da Imagem (readImage):
+3. Image Reading (readImage):
 
-    A função readImage usa a estrutura ppmFile para ler um arquivo PPM de entrada. Ela aloca dinamicamente memória para armazenar os dados da imagem e preenche a estrutura com as informações lidas do arquivo.
+   The readImage function uses the ppmFile structure to read an input PPM file. It dynamically allocates memory to store the image data and populates the structure with information read from the file.
 
-4. Escrita da Imagem (writeImage):
+4. Image Writing (writeImage):
 
-    A função writeImage usa a estrutura ppmFile para escrever os dados da imagem em um novo arquivo PPM de saída. Ela utiliza os campos da estrutura para criar o cabeçalho do arquivo e escreve os pixels da imagem.
+   The writeImage function uses the ppmFile structure to write the image data to a new output PPM file. It uses the structure's fields to create the file header and writes the image pixels.
 
-5. Filtros de Edição de Imagem (extremeContrast, negateRed, horizontalFlip, verticalFlip, zoom):
+5. Image Editing Filters (extremeContrast, negateRed, horizontalFlip, verticalFlip, zoom):
 
-    Cada uma dessas funções aplica um filtro específico à imagem. Elas usam a estrutura ppmFile para acessar os pixels da imagem e realizar as operações necessárias. Por exemplo, extremeContrast ajusta o contraste da imagem, enquanto horizontalFlip inverte a imagem horizontalmente. Essas funções atualizam os valores dos pixels na estrutura ppmFile.
+   Each of these functions applies a specific filter to the image. They use the ppmFile structure to access the image pixels and perform the necessary operations. For example, extremeContrast adjusts the image's contrast, while horizontalFlip horizontally flips the image. These functions update the pixel values in the ppmFile structure.
 
-6. Menu de Opções:
+6. Options Menu:
 
-    O código permite ao usuário selecionar quais filtros aplicar à imagem por meio de um menu interativo. As escolhas dos usuários são armazenadas em um array de caracteres choice, que é usado para determinar quais filtros executar.
+   The code allows the user to select which filters to apply to the image through an interactive menu. User choices are stored in a character array `choice`, which is used to determine which filters to execute.
 
-No geral, as estruturas de dados (pixel e ppmFile) são usadas para representar e manipular os dados da imagem, enquanto as funções operam nesses dados para aplicar os filtros desejados. O código é um exemplo prático de como as estruturas de dados são essenciais para processar informações complexas, como imagens, de maneira organizada e eficiente.
+Overall, the data structures (pixel and ppmFile) are used to represent and manipulate image data, while functions operate on this data to apply the desired filters. The code is a practical example of how data structures are essential for processing complex information, such as images, in an organized and efficient manner.
